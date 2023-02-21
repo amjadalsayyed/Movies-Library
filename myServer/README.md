@@ -4,7 +4,7 @@
 
 ## WRRC
 
-Add an image of your WRRC here
+![alt text](./readme_file_image/Untitled.png)
 
 ## Overview
 
