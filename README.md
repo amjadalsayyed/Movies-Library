@@ -10,7 +10,7 @@
 
 ## Getting Started
 
-To run this in your machine clone the repository then run _npm install_ in your trimnal after opening the directory
+To run this in your machine clone the repository then run _npm install_ in your trimnal after opening the directory (make sure to navigate to myServer directory)
 
 ## Project Features
 
