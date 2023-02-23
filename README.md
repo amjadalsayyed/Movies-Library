@@ -4,7 +4,13 @@
 
 ## WRRC
 
+### lab11
+
 ![alt text](./readme_file_image/Untitled.png)
+
+### lab12
+
+![alt text](./readme_file_image/Untitled2.png)
 
 ## Overview
 
@@ -14,4 +20,4 @@ To run this in your machine clone the repository then run _npm install_ in your 
 
 ## Project Features
 
-<!-- What are the features included in you app -->
+You can accses some Endpoints from the Movie DB API
