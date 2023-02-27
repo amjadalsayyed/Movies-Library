@@ -3,17 +3,22 @@ const express = require("express");
 const data = require("./Movie_Data/data.json");
 const cors = require("cors");
 const axios = require("axios");
+const pg = require("pg");
 require("dotenv").config();
 const app = express();
 const PORT = 5000;
+const client = new pg.Client(process.env.DATABASE_URL);
 
 app.use(cors());
+app.use(express.json());
 
 app.get("/", getData);
 app.get("/favorite", (req, res) => res.send("Hello from favorite"));
 app.get("/trending", getTrending);
 app.get("/search", getSearch);
 app.get("/genre", getGenre);
+app.get("/getMovie", getMovie);
+app.post("/getMovie", addMovie);
 app.get("/person", getPerson);
 app.get("*", errorHandler404);
 app.use(errorHandler);
@@ -42,8 +47,10 @@ function errorHandler404(req, res) {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`Running on PORT ${PORT}`);
+client.connect().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Running on PORT ${PORT}`);
+  });
 });
 
 // ************************************************************trending func*********************************************************
@@ -143,6 +150,31 @@ function getPerson(req, res) {
   } catch (error) {
     errorHandler(error, req, res);
   }
+}
+// *****************************************************addMovie****************************************************
+
+function addMovie(req, res) {
+  const movie = req.body;
+  const sqlQuery = `INSERT INTO movies (title, release_date, overview) VALUES ('${movie.title}','${movie.release_date}','${movie.overview}')`;
+  client
+    .query(sqlQuery)
+    .then((data) => {
+      res.send("added successfully");
+    })
+    .catch((err) => console.log(err.message));
+}
+
+// *****************************************************getmovie****************************************************
+function getMovie(req, res) {
+  const sql = `SELECT * FROM movies;`;
+  client
+    .query(sql)
+    .then((data) => {
+      res.send(data.rows);
+    })
+    .catch((err) => {
+      errorHandler(err, req, res);
+    });
 }
 
 // *****************************************************constructor*************************************************
