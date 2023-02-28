@@ -155,7 +155,7 @@ function getPerson(req, res) {
 
 function addMovie(req, res) {
   const movie = req.body;
-  const sqlQuery = `INSERT INTO movies (title, release_date, overview) VALUES ('${movie.title}','${movie.release_date}','${movie.overview}')`;
+  const sqlQuery = `INSERT INTO movies (title, release_date, overview,poster_path) VALUES ('${movie.title}','${movie.release_date}','${movie.overview}','${movie.poster_path}')`;
   client
     .query(sqlQuery)
     .then((data) => {
