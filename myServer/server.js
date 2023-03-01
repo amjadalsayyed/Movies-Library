@@ -17,8 +17,11 @@ app.get("/favorite", (req, res) => res.send("Hello from favorite"));
 app.get("/trending", getTrending);
 app.get("/search", getSearch);
 app.get("/genre", getGenre);
-app.get("/getMovie", getMovie);
+app.get("/getMovie", getMovies);
 app.post("/getMovie", addMovie);
+app.get("/getMovie/:id", getOneMovie);
+app.put("/updateMovie/:id", updateMovie);
+app.delete("/deleteMovie/:id", deleteMovie);
 app.get("/person", getPerson);
 app.get("*", errorHandler404);
 app.use(errorHandler);
@@ -164,13 +167,45 @@ function addMovie(req, res) {
     .catch((err) => console.log(err.message));
 }
 
-// *****************************************************getmovie****************************************************
-function getMovie(req, res) {
+// *****************************************************getMovies****************************************************
+function getMovies(req, res) {
   const sql = `SELECT * FROM movies;`;
   client
     .query(sql)
     .then((data) => {
       res.send(data.rows);
+    })
+    .catch((err) => {
+      errorHandler(err, req, res);
+    });
+}
+// ****************************************************getOneMovie**************************************************
+function getOneMovie(req, res) {
+  const id = req.params.id;
+  const sqlQuery = `SELECT * FROM movies WHERE id=${id};`;
+  client
+    .query(sqlQuery)
+    .then((data) => res.send(data.rows))
+    .catch((err) => errorHandler(err, req, res));
+}
+// ****************************************************updateMovie**************************************************
+function updateMovie(req, res) {
+  const id = req.params.id;
+  const newData = req.body;
+  const sqlQuery = `UPDATE movies SET title='${newData.title}', release_date='${newData.release_date}', overview='${newData.overview}', poster_path='${newData.poster_path}' WHERE id=${id};`;
+  client
+    .query(sqlQuery)
+    .then((data) => res.status(200).json(data.rows))
+    .catch((err) => errorHandler(err, req, res));
+}
+// *****************************************************deleteMovie*************************************************
+function deleteMovie(req, res) {
+  const id = req.params.id;
+  const sql = `DELETE FROM movies WHERE id=${id};`;
+  client
+    .query(sql)
+    .then((data) => {
+      res.status(204).json({});
     })
     .catch((err) => {
       errorHandler(err, req, res);
