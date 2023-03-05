@@ -17,12 +17,12 @@ app.get("/favorite", (req, res) => res.send("Hello from favorite"));
 app.get("/trending", getTrending);
 app.get("/search", getSearch);
 app.get("/genre", getGenre);
+app.get("/person", getPerson);
 app.get("/getMovie", getMovies);
 app.post("/getMovie", addMovie);
 app.get("/getMovie/:id", getOneMovie);
 app.put("/updateMovie/:id", updateMovie);
 app.delete("/deleteMovie/:id", deleteMovie);
-app.get("/person", getPerson);
 app.get("*", errorHandler404);
 app.use(errorHandler);
 
