@@ -2,6 +2,27 @@
 
 **Author Name**: Amjad Khaled Al-Sayyed
 
+## Deployed Link
+
+movies-library-production-9d90.up.railway.app
+
+## Routes
+
+### API routes
+
+1. Method :get ENDPoint : "/trending"
+2. Method :get ENDPoint :"/search"
+3. Method :get ENDPoint :"/genre"
+4. Method :get ENDPoint :"/person"
+
+### DataBase Routrs
+
+1. Method :get ENDPoint :"/getMovie"
+2. Method :post ENDPoint :"/getMovie"
+3. Method :get ENDPoint :"/getMovie/:id"
+4. Method :put ENDPoint :"/updateMovie/:id"
+5. Method :delete ENDPoint :"/deleteMovie/:id"
+
 ## WRRC
 
 ### lab11
