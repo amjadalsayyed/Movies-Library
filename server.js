@@ -6,7 +6,7 @@ const axios = require("axios");
 const pg = require("pg");
 require("dotenv").config();
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const client = new pg.Client(process.env.DATABASE_URL);
 
 app.use(cors());
