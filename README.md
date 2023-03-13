@@ -18,7 +18,7 @@ movies-library-production-9d90.up.railway.app
 ### DataBase Routrs
 
 1. Method :get ENDPoint :"/getMovie"
-2. Method :post ENDPoint :"/getMovie"
+2. Method :post ENDPoint :"/addMovie"
 3. Method :get ENDPoint :"/getMovie/:id"
 4. Method :put ENDPoint :"/updateMovie/:id"
 5. Method :delete ENDPoint :"/deleteMovie/:id"
