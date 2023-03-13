@@ -19,7 +19,7 @@ app.get("/search", getSearch);
 app.get("/genre", getGenre);
 app.get("/person", getPerson);
 app.get("/getMovie", getMovies);
-app.post("/getMovie", addMovie);
+app.post("/addMovie", addMovie);
 app.get("/getMovie/:id", getOneMovie);
 app.put("/updateMovie/:id", updateMovie);
 app.delete("/deleteMovie/:id", deleteMovie);
@@ -158,7 +158,7 @@ function getPerson(req, res) {
 
 function addMovie(req, res) {
   const movie = req.body;
-  const sqlQuery = `INSERT INTO movies (title, release_date, overview,poster_path) VALUES ('${movie.title}','${movie.release_date}','${movie.overview}','${movie.poster_path}')`;
+  const sqlQuery = `INSERT INTO movies (title, release_date, overview,poster_path,comment) VALUES ('${movie.title}','${movie.release_date}','${movie.overview}','${movie.poster_path}','${movie.comment}')`;
   client
     .query(sqlQuery)
     .then((data) => {
@@ -192,7 +192,7 @@ function getOneMovie(req, res) {
 function updateMovie(req, res) {
   const id = req.params.id;
   const newData = req.body;
-  const sqlQuery = `UPDATE movies SET title='${newData.title}', release_date='${newData.release_date}', overview='${newData.overview}', poster_path='${newData.poster_path}' WHERE id=${id};`;
+  const sqlQuery = `UPDATE movies SET title='${newData.title}', release_date='${newData.release_date}', overview='${newData.overview}', poster_path='${newData.poster_path},comment='${newData.comment}'' WHERE id=${id};`;
   client
     .query(sqlQuery)
     .then((data) => res.status(200).json(data.rows))
