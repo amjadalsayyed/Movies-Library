@@ -11,7 +11,7 @@ const client = new pg.Client(process.env.DATABASE_URL);
 
 app.use(
   cors({
-    origin: "http://localhost:3000/",
+    origin: "http://localhost:3000",
   })
 );
 app.use(express.json());
