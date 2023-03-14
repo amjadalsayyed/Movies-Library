@@ -9,7 +9,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const client = new pg.Client(process.env.DATABASE_URL);
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000/",
+  })
+);
 app.use(express.json());
 
 app.get("/", getData);
