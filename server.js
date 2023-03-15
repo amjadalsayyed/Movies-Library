@@ -192,10 +192,20 @@ function getOneMovie(req, res) {
 function updateMovie(req, res) {
   const id = req.params.id;
   const newData = req.body;
-  const sqlQuery = `UPDATE movies SET title='${newData.title}', release_date='${newData.release_date}', overview='${newData.overview}', poster_path='${newData.poster_path},comment='${newData.comment}'' WHERE id=${id} RETURNING *;`;
+  const sqlQuery = `UPDATE movies SET title='${newData.title}', release_date='${newData.release_date}', overview='${newData.overview}', poster_path='${newData.poster_path}',comment='${newData.comment}' WHERE id=${id} RETURNING *;`;
   client
     .query(sqlQuery)
-    .then((data) => res.status(200).json(data))
+    .then((data) => {
+      const sql = `SELECT * FROM movies;`;
+      client
+        .query(sql)
+        .then((data) => {
+          res.send(data.rows);
+        })
+        .catch((err) => {
+          errorHandler(err, req, res);
+        });
+    })
     .catch((err) => errorHandler(err, req, res));
 }
 // *****************************************************deleteMovie*************************************************
@@ -205,7 +215,15 @@ function deleteMovie(req, res) {
   client
     .query(sql)
     .then((data) => {
-      res.status(204).json({});
+      const sql = `SELECT * FROM movies;`;
+      client
+        .query(sql)
+        .then((data) => {
+          res.send(data.rows);
+        })
+        .catch((err) => {
+          errorHandler(err, req, res);
+        });
     })
     .catch((err) => {
       errorHandler(err, req, res);
