@@ -10,4 +10,3 @@ CREATE TABLE IF NOT EXISTS Movies (
 );
 -- sqlserver://localhost:5432
 
--- INSERT INTO movies (title, release_date, overview,poster_path,comment) VALUES (to_json('${movie.title}'),'${movie.release_date}',to_json('${movie.overview}'),'${movie.poster_path}','${movie.comment}')
