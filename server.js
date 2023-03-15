@@ -9,8 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const client = new pg.Client(process.env.DATABASE_URL);
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.get("/", getData);
 app.get("/favorite", (req, res) => res.send("Hello from favorite"));
@@ -192,10 +192,10 @@ function getOneMovie(req, res) {
 function updateMovie(req, res) {
   const id = req.params.id;
   const newData = req.body;
-  const sqlQuery = `UPDATE movies SET title='${newData.title}', release_date='${newData.release_date}', overview='${newData.overview}', poster_path='${newData.poster_path},comment='${newData.comment}'' WHERE id=${id};`;
+  const sqlQuery = `UPDATE movies SET title='${newData.title}', release_date='${newData.release_date}', overview='${newData.overview}', poster_path='${newData.poster_path},comment='${newData.comment}'' WHERE id=${id} RETURNING *;`;
   client
     .query(sqlQuery)
-    .then((data) => res.status(200).json(data.rows))
+    .then((data) => res.status(200).json(data))
     .catch((err) => errorHandler(err, req, res));
 }
 // *****************************************************deleteMovie*************************************************
